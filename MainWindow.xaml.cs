@@ -13,14 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Windows.Forms; 
 
 
 namespace TurnoffTimer
 {
     public partial class MainWindow : Window
     {
-        int result;
+        int seconds;
         string input1, input2;      
         private static readonly Regex regex = new Regex("[^0-9.-]+"); // matches disallowed text
         
@@ -41,15 +41,17 @@ namespace TurnoffTimer
 
         void Shutdown(string str)
         {
-            MessageBox.Show(str, "str");
-            //// with hiding the cmd window
-            //System.Diagnostics.Process process = new System.Diagnostics.Process();
-            //System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            //startInfo.FileName = "cmd.exe";
-            //startInfo.Arguments = str;
-            //process.StartInfo = startInfo;
-            //process.Start();
+            // to check the code without shutting down :)
+            //str = "explorer";
+
+            // with hiding the cmd window
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "/C " + str;
+            process.StartInfo = startInfo;
+            process.Start();
         }
 
         public MainWindow()
@@ -59,11 +61,7 @@ namespace TurnoffTimer
         }
 
         private void ButtonAccept_Click(object sender, RoutedEventArgs e)
-        {
-            // ?
-            input1 = "";
-            input1 = "";
-            
+        {    
             input1 = CheckInput(inputH.Text);
             input2 = CheckInput(inputM.Text);
 
@@ -77,37 +75,52 @@ namespace TurnoffTimer
                 }
                 else if (input2 == "x")
                 {
-                    MessageBox.Show("Enter only numbers, please try again.");
+                    System.Windows.MessageBox.Show("Enter only numbers, please try again.");
                     inputM.Clear();
                     inputM.Focus();
                 }
                 else
                 {
-                    result = Int32.Parse(input1) * 3600 + Int32.Parse(input2) * 60;
-                    Shutdown(String.Format("shutdown -s -t {0}", result));
+                    seconds = Int32.Parse(input1) * 3600 + Int32.Parse(input2) * 60;
+                    Shutdown(String.Format("shutdown -s -t {0}", seconds));                   
+                    DialogResult result = System.Windows.Forms.MessageBox.Show(String.Format("Shutting down in {0} hours and {1} minutes", Int32.Parse(input1), Int32.Parse(input2)),
+                                                            "Succeeded!",
+                                                            MessageBoxButtons.OK,
+                                                            MessageBoxIcon.Information
+                                                            );
+
                     inputH.Clear();
                     inputM.Clear();
-
                 }
             }
             else
             {
-                //MessageBox.Show("Want to turn off PC now?", "Are you sure");
-                Shutdown("shutdown -s");
-                inputH.Clear();
-                inputM.Clear();              
+                DialogResult result = System.Windows.Forms.MessageBox.Show("00 hr : 00 min\nDo you want to turn off PC now?", 
+                                                                            "Confirm the action", 
+                                                                            MessageBoxButtons.YesNo,
+                                                                            MessageBoxIcon.Warning,
+                                                                            MessageBoxDefaultButton.Button2);
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Shutdown("shutdown -s");
+                    inputH.Clear();
+                    inputM.Clear();
+                }            
             }
 
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            Shutdown("shutdown -a");           
-        }
-
-        private void inputH_TextChanged(object sender, TextChangedEventArgs e)
-        {
+            const string message = "Abort the shutdown?";
+            const string title = "Confirm cancelling";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
             
+            DialogResult result = System.Windows.Forms.MessageBox.Show(message, title, buttons, 
+                                                                        MessageBoxIcon.Stop, 
+                                                                        MessageBoxDefaultButton.Button2);
+            if (result == System.Windows.Forms.DialogResult.Yes)
+                Shutdown("shutdown -a");
         }
     }
 }
