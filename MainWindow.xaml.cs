@@ -39,6 +39,16 @@ namespace TurnoffTimer
             return str;
         }
 
+        void UpdateStatus(string msg, bool ch)
+        {
+            status.Content = msg;
+            
+            if (ch == true)
+                status.FontStyle = FontStyles.Italic;
+            else
+                status.FontStyle = FontStyles.Normal;
+        }
+
         void Shutdown(string str)
         {
             // to check the code without shutting down :)
@@ -58,6 +68,7 @@ namespace TurnoffTimer
         {
             InitializeComponent();
             inputH.Focus();
+            UpdateStatus("🤔 (not set)", false);
         }
 
         private void ButtonAccept_Click(object sender, RoutedEventArgs e)
@@ -69,26 +80,32 @@ namespace TurnoffTimer
             {
                 if (input1 == "x")
                 {
-                    System.Windows.MessageBox.Show("Enter only numbers, please try again.");
+                    System.Windows.Forms.MessageBox.Show("Only numbers are allowed, please try again.",
+                                                            "Prohibited action",
+                                                            MessageBoxButtons.OK,
+                                                            MessageBoxIcon.Warning);
                     inputH.Clear();
                     inputH.Focus();
                 }
                 else if (input2 == "x")
                 {
-                    System.Windows.MessageBox.Show("Enter only numbers, please try again.");
+                    System.Windows.Forms.MessageBox.Show("Only numbers are allowed, please try again.",
+                                        "Prohibited action",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Warning);
                     inputM.Clear();
                     inputM.Focus();
                 }
                 else
                 {
                     seconds = Int32.Parse(input1) * 3600 + Int32.Parse(input2) * 60;
-                    Shutdown(String.Format("shutdown -s -t {0}", seconds));                   
+                    Shutdown(String.Format("shutdown -s -t {0}", seconds));                    
+                    UpdateStatus("Shutdown is set.", true);
                     DialogResult result = System.Windows.Forms.MessageBox.Show(String.Format("Shutting down in {0} hours and {1} minutes", Int32.Parse(input1), Int32.Parse(input2)),
                                                             "Succeeded!",
                                                             MessageBoxButtons.OK,
                                                             MessageBoxIcon.Information
-                                                            );
-
+                                                            );                    
                     inputH.Clear();
                     inputM.Clear();
                 }
@@ -103,6 +120,7 @@ namespace TurnoffTimer
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
                     Shutdown("shutdown -s");
+                    UpdateStatus("Immitiate shutdown.", true);
                     inputH.Clear();
                     inputM.Clear();
                 }            
@@ -111,16 +129,16 @@ namespace TurnoffTimer
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
-        {
-            const string message = "Abort the shutdown?";
-            const string title = "Confirm cancelling";
-            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            
-            DialogResult result = System.Windows.Forms.MessageBox.Show(message, title, buttons, 
+        {          
+            DialogResult result = System.Windows.Forms.MessageBox.Show("Abort the shutdown?", "Confirm cancelling", 
+                                                                        MessageBoxButtons.YesNo, 
                                                                         MessageBoxIcon.Stop, 
                                                                         MessageBoxDefaultButton.Button2);
             if (result == System.Windows.Forms.DialogResult.Yes)
+            {
                 Shutdown("shutdown -a");
+                UpdateStatus("Shutdown aborted.", true);
+            }
         }
     }
 }

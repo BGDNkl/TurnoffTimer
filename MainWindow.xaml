@@ -5,24 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TurnoffTimer"
         mc:Ignorable="d"
-        Title="Shutdown Timer" Height="305" Width="525" MinWidth="525" MinHeight="305" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="525" MaxHeight="305" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="#FF4762F7" Background="#FF4762F7" Icon="timer.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Shutdown Timer" Height="289.941" Width="428.06" MinWidth="10" MinHeight="10" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="525" MaxHeight="305" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="#FF4762F7" Background="#FF4762F7" Icon="timer.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Effect>
         <DropShadowEffect/>
     </Window.Effect>
-    <Grid Margin="0,0,-2.6,-0.8" Background="#FFF9F9F9">
+    <Grid Margin="0,0,-6.4,-6.6" Background="#FFF9F9F9">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="Shutdown1_label" Content="Shutdown PC in: " Height="35" Margin="77,34,9.8,0" VerticalAlignment="Top" FontSize="22" Background="#FFF9F9F9" Foreground="#FF313030" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="inputH" HorizontalAlignment="Left" Height="35" Margin="10.2,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" FontSize="21" FontWeight="SemiBold" UndoLimit="3" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MaxLines="1" MaxLength="2" Background="#FFFCFCFC" Foreground="#FF313030" TabIndex="0" />
-        <Label x:Name="Shutdown2_label" Content="hr" HorizontalAlignment="Left" Height="35" Margin="69.2,34,0,0" VerticalAlignment="Top" Width="30" FontSize="21" RenderTransformOrigin="-0.166,0.61" Grid.Column="1" Foreground="#FF313030" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="inputM" Grid.Column="1" HorizontalAlignment="Left" Height="35" Margin="104.2,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" FontSize="21" FontWeight="SemiBold" RenderTransformOrigin="-0.202,0.497" UndoLimit="3" MaxLength="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MaxLines="1" Background="#FFFCFCFC" Foreground="#FF313030"/>
-        <Label x:Name="Shutdown3_label" Content="min" HorizontalAlignment="Left" Height="35" Margin="163.2,34,0,0" VerticalAlignment="Top" Width="44" FontSize="21" Grid.Column="1" Foreground="#FF313030" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="ButtonAccept" Content="OK" HorizontalAlignment="Left" Margin="10.2,121,0,0" VerticalAlignment="Top" Width="162" FontSize="17" Height="38" Grid.Column="1" Click="ButtonAccept_Click" IsDefault="True" Background="#FF4762F7" Foreground="#FFF9F9F9" BorderBrush="{x:Null}"/>
-        <Label Content="Shutting down in:" HorizontalAlignment="Left" Margin="188,194,0,0" VerticalAlignment="Top" FontSize="17" Width="147" Grid.ColumnSpan="2" Background="#FFF9F9F9" Foreground="#FF313030"/>
-        <Label Content="🤔 (not set)" HorizontalAlignment="Left" Margin="211,226,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.11,-0.013" FontSize="17" Grid.ColumnSpan="2" Foreground="#FF313030" Background="#FFF9F9F9"/>
-        <Button x:Name="ButtonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="89,121,0,0" VerticalAlignment="Top" Width="162" Height="38" FontSize="17" IsCancel="True" Click="ButtonCancel_Click" Background="#FF4762F7" Foreground="#FFF9F9F9" BorderBrush="{x:Null}"/>
+        <Label x:Name="Shutdown1_label" Content="Shutdown PC in: " Height="39" Margin="44,23,0,0" VerticalAlignment="Top" FontSize="20" Background="#FFF9F9F9" Foreground="#FF313030" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="160"/>
+        <TextBox x:Name="inputH" HorizontalAlignment="Left" Height="39" Margin="11,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="43" FontSize="18" FontWeight="SemiBold" UndoLimit="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MaxLines="1" MaxLength="2" Background="#FFFCFCFC" Foreground="#FF313030" TabIndex="0" Grid.Column="1" />
+        <Label x:Name="Shutdown2_label" Content="hr" HorizontalAlignment="Left" Height="39" Margin="53.6,24,0,0" VerticalAlignment="Top" Width="31" FontSize="18" RenderTransformOrigin="-0.166,0.61" Grid.Column="1" Foreground="#FF313030" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="inputM" HorizontalAlignment="Left" Height="39" Margin="86.6,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="43" FontSize="18" FontWeight="SemiBold" RenderTransformOrigin="-0.202,0.497" UndoLimit="3" MaxLength="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MaxLines="1" Background="#FFFCFCFC" Foreground="#FF313030" Grid.Column="1"/>
+        <Label x:Name="Shutdown3_label" Content="min" HorizontalAlignment="Left" Height="39" Margin="128.6,24,0,0" VerticalAlignment="Top" Width="42" FontSize="18" Grid.Column="1" Foreground="#FF313030" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.118,0.624"/>
+        <Button x:Name="ButtonAccept" Content="OK" HorizontalAlignment="Left" Margin="9.6,100,0,0" VerticalAlignment="Top" Width="147" FontSize="17" Height="40" Click="ButtonAccept_Click" IsDefault="True" Background="#FF4762F7" Foreground="#FFF9F9F9" BorderBrush="{x:Null}" Grid.Column="1"/>
+        <Label Content="Status:" HorizontalAlignment="Left" Margin="184,164,0,0" VerticalAlignment="Top" FontSize="17" Width="61" Background="#FFF9F9F9" Foreground="#FF313030" Grid.ColumnSpan="2"/>
+        <Label x:Name="status" Content="Shutdown is aborted" HorizontalAlignment="Left" Margin="144,196,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.11,-0.013" FontSize="14" Foreground="#FF313030" Background="#FFF9F9F9" Width="140" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="ButtonCancel" Content="Abort" HorizontalAlignment="Left" Margin="59,100,0,0" VerticalAlignment="Top" Width="145" Height="40" FontSize="17" IsCancel="True" Click="ButtonCancel_Click" Background="#FF4762F7" Foreground="#FFF9F9F9" BorderBrush="{x:Null}" RenderTransformOrigin="0.097,-0.555"/>
 
     </Grid>
 </Window>
