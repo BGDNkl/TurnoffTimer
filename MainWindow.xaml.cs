@@ -27,12 +27,9 @@ namespace TurnoffTimer
         // cheking TextBox'es
         string CheckInput(string str)
         {
-            if (regex.IsMatch(str))
-            {
-                // wrong symbols in textbox
+            if (regex.IsMatch(str))           
                 return "x";
-            }
-            
+                      
             if (string.IsNullOrWhiteSpace(str))
                 return "0";
             
@@ -51,7 +48,8 @@ namespace TurnoffTimer
 
         void Shutdown(string str)
         {
-            // to check the code without shutting down :)
+            //// to check the code without shutting down :)
+            //System.Windows.Forms.MessageBox.Show(str);
             //str = "explorer";
 
             // with hiding the cmd window
@@ -99,9 +97,49 @@ namespace TurnoffTimer
                 else
                 {
                     seconds = Int32.Parse(input1) * 3600 + Int32.Parse(input2) * 60;
-                    Shutdown(String.Format("shutdown -s -t {0}", seconds));                    
-                    UpdateStatus("Shutdown is set.", true);
-                    DialogResult result = System.Windows.Forms.MessageBox.Show(String.Format("Shutting down in {0} hours and {1} minutes", Int32.Parse(input1), Int32.Parse(input2)),
+                    Shutdown(String.Format("shutdown -s -t {0}", seconds));
+
+                    // calculating the time:
+                    DateTime date = DateTime.Now;
+                    int hour_int = Int32.Parse(input1) + date.Hour,
+                     minute_int = Int32.Parse(input2) + date.Minute,
+                     days_int = 0;
+                    string hour_str = "", minute_str = "";
+
+                    if (hour_int > 24)
+                    {
+                        hour_int = (Int32.Parse(input1) + date.Hour) % 24;
+                        days_int = (Int32.Parse(input1) + date.Hour) / 24;
+                    }
+
+                    if (minute_int > 59)
+                    {
+                        minute_int = (Int32.Parse(input2) + date.Minute) % 60;
+                        hour_int += ((Int32.Parse(input2) + date.Minute) - minute_int) / 60;
+                    }
+
+                    if (hour_int == 24) hour_str = "00";
+                    else hour_str = hour_int.ToString();
+
+                    if (minute_int == 60) minute_str = "00";
+                    else if (minute_int < 10) minute_str = "0" + minute_int.ToString();
+                    else minute_str = minute_int.ToString();
+
+                    string message = "Shutdown at ";
+                    if (days_int > 0)
+                        message = "Shutdown in " + days_int + " days at ";
+
+                    UpdateStatus(message + hour_str + ":" + minute_str, true);
+
+                    // fix the minutes in MessageBox
+                    int msbH = Int32.Parse(input1), msbM = Int32.Parse(input2);
+                    if (msbM > 59)
+                    {
+                        msbH += 1;
+                        msbM -= 59;
+                    }
+
+                    DialogResult result = System.Windows.Forms.MessageBox.Show(String.Format("Shutting down in {0} hours and {1} minutes", msbH, msbM),
                                                             "Succeeded!",
                                                             MessageBoxButtons.OK,
                                                             MessageBoxIcon.Information
