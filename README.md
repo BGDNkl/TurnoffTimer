@@ -1,7 +1,6 @@
 ﻿# Turnoff Timer
-###### WPF .NET Framework
+WPF .NET Framework
+
+### An  application that allows users to amount of time before computer will turn off automatically.
 #
-#### An  application that allows users to amount of time before computer will turn off automatically.
-#
-#
-###### License – free for non-commercial use.
+##### License – free for non-commercial use.
